@@ -1,0 +1,305 @@
+
+body{
+  height: 100%;
+}
+
+html{
+  height: 100%;
+}
+
+.container{
+  background-color: #fff;
+  margin: 0 auto;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas:
+        "sidebar main"
+        "footer footer";
+  grid-gap: 50px;
+}
+
+header{
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.sidebar{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  min-height: 100%;
+  height: 100vh;
+  align-items: stretch;
+  background-color: #cccccc;
+  border-right: 2px solid black;
+}
+
+.componentTypes{
+  display: none;
+  background-color: #b3d4fc;
+  border-color: black;
+  border-width: 10px;
+  text-align: center;
+}
+
+a{
+  color: black;
+}
+
+a:active{
+  color: grey;
+}
+
+.welcome-screen{
+  display: grid;
+  text-align: center;
+}
+
+
+.dropdown:hover > .componentTypes{
+  display: flex;
+  flex-direction: column;
+  margin-left: 97px;
+  margin-top: -24.5px;
+  position: absolute;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  width: max-content;
+}
+
+#items{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+
+}
+#items > li{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  width: 150px;
+  border: black solid 2px;
+  overflow: hidden;
+}
+
+.itemButton{
+  margin-top: 5px;
+  width: 60px;
+  margin-left: 90px;
+}
+
+.prices{
+  margin-top: 75px;
+  margin-left: 110px;
+}
+
+.components{
+  display: none;
+
+}
+
+.dropdown:hover > .components{
+  display: flex;
+}
+
+
+.selectionComponents{
+  display: grid;
+  border: black solid 2px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.selectionComponents > label{
+  height: 400px;
+  overflow: scroll;
+}
+
+.selectionComponents > label > div > select{
+  display: grid;
+  width: 100px;
+}
+
+.addComponent{
+  position: relative;
+}
+
+
+
+#createButton{
+  display: grid;
+  padding: 10px;
+  margin: 10px auto auto;
+}
+
+
+.computer_building{
+  display: none;
+}
+
+#computer_items{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 50%;
+  margin: auto;
+  border: 3px solid black;
+  padding: 10px;
+  z-index: 1;
+  text-align: center;
+}
+
+#computer_items > ul{
+  display: flex;
+  height: 100px;
+  width: content-box;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: scroll;
+  justify-content: center;
+}
+
+#computer_items > ul > li{
+  padding-right: 70px;
+}
+
+#done_button{
+  width: 100px;
+  height: 50px;
+}
+
+#computer_case{
+  z-index: 1;
+  text-align: center;
+  overflow: clip;
+  background-image: url(/visual/computer_case.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 600px;
+  height: 400px;
+}
+
+#computer_text {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+
+.draggable{
+  cursor: move;
+}
+
+#dropped{
+  width: 200px;
+  height: 100px;
+}
+
+.save_panel{
+  text-align: left;
+  padding-left: 10px;
+  z-index: 10;
+  overflow: scroll;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #b3d4fc;
+  height: 300px;
+  width: 500px;
+  top: 30%;
+  left: 40%;
+  display: none;
+
+}
+
+#close_panel{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#computers{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+#computers > li{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  height: 250px;
+  width: 300px;
+  background-image: url(/visual/computer_case.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: black solid 2px;
+  overflow: hidden;
+}
+
+.detailsComputer{
+  width: 60px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.computerName{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#details_panel{
+  top: 200px;
+  left: 40%;
+  z-index: 10;
+  position: fixed;
+  background-color: #b3d4fc;
+  height: 300px;
+  width: 500px;
+  display: none;
+}
+
+.invisible_Comp{
+  display: none;
+}
+
+#components{
+  position: absolute;
+  height: 50%;
+  width: 40%;
+  right: 0;
+  bottom: 25%;
+  overflow: scroll;
+}
+
+#components > li{
+
+}
+
+#edit_computer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+#delete_computer{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

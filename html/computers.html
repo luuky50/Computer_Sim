@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Components</title>
+
+
+  <script type="module" defer src="../js/dataReceiver.js"></script>
+  <script type="module" defer src="../js/computers.js"></script>
+
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+  <aside class="sidebar">
+    <h1>Computer Sim</h1>
+    <div class="buttons">
+      <button type="button" onclick="location.href='index.html'">Home</button>
+      <div class="dropdown">
+        <button type="button" onclick="location.href='components.html'"> Components</button>
+        <div class="componentTypes">
+          <a href="components.html?component=GPU">GPU</a>
+          <a href="components.html?component=CPU">CPU</a>
+          <a href="components.html?component=MOTHERBOARD">MOTHERBOARD</a>
+          <a href="components.html?component=PSU">PSU</a>
+          <a href="components.html?component=COOLER">COOLER</a>
+          <a href="components.html?component=RAM">RAM</a>
+          <a href="components.html?component=STORAGE">STORAGE</a>
+        </div>
+      </div>
+      <button type="button" onclick="location.href='computer_creating.html'">Build your own pc</button>
+      <button type="button" onclick="location.href='computers.html'">My computers</button>
+    </div>
+  </aside>
+
+  <div>
+    <ul id="computers">
+
+    </ul>
+  </div>
+
+  <form id="details_panel">
+    <button type="button" id="close_panel">X</button>
+    <div id="computer_name"></div>
+    <ul id="components">
+
+    </ul>
+    <button type="button" id="edit_computer">Edit</button>
+    <button type="button" id="delete_computer">Delete</button>
+  </form>
+
+</div>
+
+
+<footer>
+  <h5>Created by Luuk Hulshof</h5>
+</footer>
+
+</body>
+</html>
