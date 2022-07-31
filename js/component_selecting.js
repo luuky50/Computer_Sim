@@ -1,38 +1,28 @@
-import {getComponentsOfType} from "../js/dataReceiver.js";
-import {createNewComputerBlueprint} from "../js/computer_creating.js";
+import {getComponentsOfType, getComputerByHashCode} from "../js/dataReceiver.js";
+import {createComputerBlueprint, addComponents} from "../js/computer_creating.js";
+import {Component, Computer} from "../js/models/model.js"
+
+
+
 
 let components_local = [];
 
+
 window.onload = function(){
-  if(location.href.includes('?')){
-    console.log('Already created computer');
-    switchPanel(false);
-    let url = location.href.split('?');
-    console.log(url);
-    let currentData = [];
-    currentData.name = url[1].split('=')[1];
-    url[2] = url[2].replaceAll('%22', '');
-    let componentAmount = url[2].split('},{')
-
-    for (let i = 0; i < componentAmount.length; i++) {
-      currentData.components = [];
-      let component = componentAmount[i].split(',');
-
-      let newComponent = new Component(component[0].split(':')[1], component[1].split(':')[1], component[2].split(':')[1], component[3].split(':')[1])
-      components_local.push(newComponent);
-    }
-    console.log(JSON.stringify(components_local));
-    createNewComputerBlueprint(components_local);
+  if(location.href.includes('#')) {
+    getCurrentComputer().then(() => console.log('Loading current computer'));
   }
 }
 
-function Component(id, type, name, price){
-  this.id = id;
-  this.name = name;
-  this.type = type;
-  this.price = price;
+async function getCurrentComputer(){
+  console.log('Already created computer');
+  switchPanel(false);
+  let hash = location.hash;
+  console.log(hash.replaceAll('#', ''));
+  let currentComputer = await getComputerByHashCode(hash.replaceAll('#', ''))
+  let computerModel = new Computer(currentComputer.id, currentComputer.name, currentComputer.components)
+  createComputerBlueprint(computerModel).then(() => console.log(computerModel));
 }
-
 
 function addFunctionalityToSelectButtons() {
   let selects = document.querySelectorAll('select')
@@ -55,7 +45,7 @@ function addFunctionalityToCreateComputerButton(){
   let button = document.getElementById('createButton');
   button.onclick = async function () {
     let components = await getComponents();
-    await createNewComputerBlueprint(components);
+    await addComponents(components, true);
     switchPanel(false)
   }
 }
@@ -70,6 +60,12 @@ function addNewComponent(type) {
   })
 }
 
+function switchPanel(onSelectingPage){
+  let componentsMenu = document.getElementById("selectionComp");
+  let computerMenu = document.getElementById("computer_build");
+  componentsMenu.style.display = onSelectingPage ? "block" : "none";
+  computerMenu.style.display = onSelectingPage ? "none" : "block";
+}
 
 async function populateSelectionList(type) {
   let data = await getComponentsOfType(type)
@@ -80,7 +76,7 @@ async function populateSelectionList(type) {
     if(element.options.length < amountOfComponents) {
       for (let i = 0; i < amountOfComponents; i++) {
         let option = document.createElement('option');
-        option.className = data[i].name;
+        option.name = data[i].name;
         option.innerHTML = "<div>" + data[i].name + "</div>";
         components_local.push(new Component(data[i].id, data[i].type, data[i].name, data[i].price));
         element.append(option);
@@ -96,13 +92,6 @@ if(document.URL.includes('computer_creating.html')){
   addFunctionalityToCreateComputerButton();
 }
 
-function switchPanel(onSelectingPage){
-  let componentsMenu = document.getElementById("selectionComp");
-  let computerMenu = document.getElementById("computer_build");
-  componentsMenu.style.display += onSelectingPage ? "block" : "none";
-  computerMenu.style.display += onSelectingPage ? "none" : "block";
-  return onSelectingPage;
-}
 
 async function getComponents() {
 
@@ -115,7 +104,7 @@ async function getComponents() {
 
   components.forEach(comp =>{
     components_local.forEach(loc => {
-      if(loc.name === comp.className){
+      if(loc.name === comp.name){
         comp.id = loc.id;
         comp.type = loc.type;
         comp.price = loc.price;
@@ -125,5 +114,5 @@ async function getComponents() {
   return components;
 }
 
-export {Component}
+
 export {switchPanel}

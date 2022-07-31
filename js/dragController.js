@@ -1,5 +1,5 @@
-import {addItemToList} from "../js/computer_creating.js";
-import {removeItemFromList} from "../js/computer_creating.js";
+import {addItemToComponentList} from "../js/computer_creating.js";
+import {removeItemFromComponentList} from "../js/computer_creating.js";
 
 let dropZones = document.querySelectorAll('.dropzone');
 
@@ -18,11 +18,12 @@ dropZones.forEach(element =>{
 
     element.appendChild(dragItem)
 
-    if(element.id === 'computer_text')
-      addItemToList(dragItem);
-    else if(element.id === 'computer_list')
-      removeItemFromList(dragItem);
-
+    if(element.id === 'computer_text') {
+      addItemToComponentList(dragItem);
+    }
+    else if(element.id === 'computer_list') {
+      removeItemFromComponentList(dragItem);
+    }
   })
 })
 

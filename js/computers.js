@@ -1,8 +1,8 @@
-import {getComputerData} from "../js/dataReceiver.js";
+import {getComputerData, getComputerHashCode} from "../js/dataReceiver.js";
 import {deleteComputer} from "../js/dataSender.js";
 import {switchPage} from "../js/main.js";
 
-function getDetails(data){
+async function getDetails(data){
 
   let savePanel = document.getElementById("details_panel");
   let components = document.getElementById('components');
@@ -24,26 +24,27 @@ function getDetails(data){
     totalPrice += comp.price;
     components.append(listItem);
   }
+  let hash = await getComputerHashCode(data.id);
 
-  addFunctionalityToEditButton(editButton, data)
+  addFunctionalityToEditButton(editButton, hash)
   addFunctionalityToDeleteButton(deleteButton, data.id)
 
   savePanel.append(computerName)
   savePanel.style.display = "block";
 }
 
-function addFunctionalityToEditButton(editButton, data){
+function addFunctionalityToEditButton(editButton, hash){
   console.log(editButton);
   editButton.addEventListener('click', function () {
-    switchPage('computer_creating.html?name=' + data.name + "?components=" + JSON.stringify(data.components))}, false);
+    switchPage('computer_creating.html#' + hash)}, false);
 }
 
 function addFunctionalityToDeleteButton(deleteButton, computerID){
-  deleteButton.addEventListener('click', function (){deleteComputer(computerID)}, false);
+  deleteButton.addEventListener('click', function (){deleteComputer(computerID).then(switchPage('computers.html'))}, false);
 }
 
 function addFunctionalityToDetailsButton(item, data){
-  //Should get the index from item
+  //TODO:Should get the index from item
   item.children.item(2).addEventListener('click', function(){getDetails(data)}, false);
 }
 
@@ -59,7 +60,7 @@ addFunctionalityToCloseComputerPanelButton()
 
 async function showContentItems() {
   let data = await getComputerData();
-
+  console.log(data);
   let list = document.getElementById('computers');
   let html = "";
   for (let i = 0; i < data.length; i++) {

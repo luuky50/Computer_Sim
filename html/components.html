@@ -4,6 +4,7 @@
 
   <script type="module" defer src="../js/components.js"></script>
   <script type="module" defer src="../js/dataReceiver.js"></script>
+  <script type="module" defer src="../js/main.js"></script>
 
   <meta charset="UTF-8">
   <title>Components</title>
@@ -20,12 +21,12 @@
       <button type="button" onclick="location.href='index.html'">Home</button>
       <div class="dropdown">
         <button type="button" onclick="location.href='components.html'"> Components</button>
-        <div class="componentTypes">
+        <div id="componentTypes">
           <a href="components.html?component=GPU">GPU</a>
           <a href="components.html?component=CPU">CPU</a>
           <a href="components.html?component=MOTHERBOARD">MOTHERBOARD</a>
           <a href="components.html?component=PSU">PSU</a>
-          <a href="components.html?component=COOLER">COOLER</a>
+          <a href="components.html?component=COOLING">COOLING</a>
           <a href="components.html?component=RAM">RAM</a>
           <a href="components.html?component=STORAGE">STORAGE</a>
         </div>
@@ -36,10 +37,29 @@
   </aside>
 
   <div>
+    <button id="add_component">+</button>
     <ul id="items">
 
     </ul>
   </div>
+</div>
+
+</div>
+<form class="save_panel" id="save_panel">
+  <button type="button" id="close_panel">X</button>
+  <h3 id="component_header">Adding new component</h3>
+  <label for="component_name">Component name: </label><br>
+  <input type="text" id="component_name" name="component_name" placeholder="Insert name here"><br>
+  <div id="component_type">Component type: </div>
+  <label for="component_price">Component price: </label><br>
+  <input type="text" id="component_price" name="component_price" placeholder="Insert price here"><br>
+
+
+
+  <button type="button" id="save_button">Save</button>
+  <button type="button" id="edit_button">Edit</button>
+  <button type="button" id="delete_button">Delete</button>
+</form>
 </div>
 
 <footer>

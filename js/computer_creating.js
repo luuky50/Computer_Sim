@@ -1,135 +1,188 @@
 import {addDraggableEvents} from "../js/dragController.js";
-import {postNewComputer} from '../js/dataSender.js';
-import {Component} from "../js/component_selecting.js";
+import {editComputer, postNewComputer} from '../js/dataSender.js';
+import {Component, Computer} from "../js/models/model.js"
+import {switchPanel} from "../js/component_selecting.js"
+import {switchPage} from "../js/main.js";
 
-let selected_components = [];
-let grabbed_components = [];
-let currentData = [];
+let componentsOutOfComputer = [];
+let current_computer = [];
 
 
-
-async function createNewComputerBlueprint(components){
-  console.log(JSON.stringify(components));
-  let bluePrint = document.getElementById('computer_list');
-  for (let i = 0; i < components.length; i++) {
-    let item = document.createElement('li')
-    grabbed_components.push(new Component(components[i].id, components[i].type, components[i].name, components[i].price));
-    if(components[i].name === undefined) {
-      item.innerHTML = components[i].className;
-    }
-    else if(components[i].className === undefined){
-      item.innerHTML = components[i].name;
-    }
-    item.className = 'draggable';
-    item.draggable = true;
-    bluePrint.append(item);
-  }
-  console.log(grabbed_components);
-  await addDraggableEvents();
-  return bluePrint;
+async function createComputerBlueprint(computer) {
+  current_computer = computer;
+  await addComponents(computer.components, false);
 }
 
-function addFunctionalityToCompleteButton(){
+async function addComponents(components, newComputer) {
+  let grabbed_components = [];
+  let bluePrint = document.getElementById('computer_list');
+  let computerArea = document.getElementById('computer_text')
+  for (let i = 0; i < components.length; i++) {
+    let item = document.createElement('li')
+    item.innerHTML = components[i].name;
+    item.className = 'draggable';
+    item.draggable = true;
+    if (newComputer) {
+      console.log('adding components');
+      componentsOutOfComputer.push(new Component(parseInt(components[i].id), components[i].type, components[i].name, components[i].price));
+      bluePrint.append(item);
+    } else {
+      item.isInPC = true;
+      computerArea.append(item);
+    }
+  }
+  if (current_computer.length === 0) {
+    current_computer = new Computer(null, "", componentsOutOfComputer)
+  }
+  await addDraggableEvents();
+}
+
+function addFunctionalityToCompleteButton() {
   let completeButton = document.getElementById('done_button');
-  completeButton.onclick = function (){
+  completeButton.onclick = function () {
     completeNewComputer();
   }
 }
 
-function addFunctionalityToSaveButton(){
-  console.log('Running');
+function addFunctionalityToSaveButton(isNewComputer) {
   let saveButton = document.getElementById('save_button');
-  saveButton.onclick = function (){
-    saveComputer();
+  saveButton.onclick = function () {
+    saveComputer(isNewComputer);
   }
 }
 
-function addFunctionalityToCloseSavePanelButton(){
+function addFunctionalityToBackButton() {
+  let backButton = document.getElementById('back_button');
+  backButton.onclick = function () {
+    switchPanel(true);
+  }
+}
+
+function addFunctionalityToCloseSavePanelButton() {
   let closeButton = document.getElementById('close_panel')
-  closeButton.onclick = function (){
+  closeButton.onclick = function () {
     let savePanel = document.getElementById("save_panel");
     savePanel.style.display = "none";
-    currentData = null;
+    current_computer.components = [];
     resetItems();
   }
 }
 
-if(document.URL.includes('computer_creating.html')) {
+if (document.URL.includes('computer_creating.html')) {
   addFunctionalityToCloseSavePanelButton();
-  addFunctionalityToSaveButton();
+  if (location.href.includes('?')) {
+    addFunctionalityToSaveButton(false);
+  } else {
+    addFunctionalityToSaveButton(true);
+  }
   addFunctionalityToCompleteButton();
+  addFunctionalityToBackButton();
 }
 
-function completeNewComputer(){
+function completeNewComputer() {
 
-  let newComputerData = {
-    components : selected_components
-  };
-  console.log(JSON.stringify(newComputerData));
-  openSavePanel(newComputerData);
+  console.log(JSON.stringify(current_computer));
+  openSavePanel(current_computer);
 }
 
-function saveComputer(){
-  if(currentData !== null){
+function saveComputer(isNewComputer) {
+  if (current_computer !== null) {
     let formElement = document.forms.save_panel;
     let formData = new FormData(formElement);
-    currentData.name = formData.get('computer_name');
-    console.log(currentData.name);
-    postNewComputer(currentData).then(() => window.location.href = 'computers.html');
-    currentData = null;
-  }
-  else{
+    let newName = formData.get('computer_name');
+    console.log(newName);
+    console.log(current_computer.name)
+    if(newName === "" || newName === null && current_computer.name === null){
+      let errorMsg = document.getElementById('error_message');
+      errorMsg.style.display = 'block';
+      return;
+    }
+    else{
+      current_computer.name = newName;
+    }
+    console.log(current_computer.name);
+    if (isNewComputer) {
+      postNewComputer(current_computer).then(switchPage('computers.html'));
+      current_computer = [];
+    } else {
+      console.log(JSON.stringify(current_computer));
+      editComputer(current_computer.id, current_computer).then(switchPage('computers.html'));
+      current_computer = [];
+    }
+  } else {
     throw new Error('Current data is null, cannot post new computer!');
   }
 }
 
 
-function openSavePanel(data){
+function openSavePanel(data) {
   let savePanel = document.getElementById("save_panel");
   let componentsDoneList = document.getElementById("done_items");
+  let saveButton = document.getElementById('save_button');
+  let computerName = document.getElementById('computer_name');
+  let errorMsg = document.getElementById('error_message');
+  errorMsg.style.display = 'none';
+  if(data.name !== undefined) {
+    computerName.placeholder = data.name;
+  }
   componentsDoneList.innerHTML = '';
   savePanel.style.display = "block";
 
-  if(data.components.length === 0){
+  if (data.components === undefined || data.components.length === 0) {
     console.log('No components added')
+    componentsDoneList.append(document.createElement('div').innerHTML = 'No components added');
+    saveButton.style.display = "none";
     return;
   }
-  currentData = data;
+  saveButton.style.display = "block";
 
-  data.components.forEach(item =>{
+  data.components.forEach(item => {
     let comp = document.createElement('li')
-    comp.innerHTML = item.name;
+    if (item.name === undefined) {
+      comp.innerHTML = item.className;
+    } else {
+      comp.innerHTML = item.name;
+    }
     componentsDoneList.append(comp);
   })
 }
 
 
-
-function addItemToList(draggedItem){
-  if(!draggedItem.isInPC) {
+function addItemToComponentList(draggedItem) {
+  if (!draggedItem.isInPC) {
     let limit = 1;
 
-    console.log(draggedItem.innerHTML);
-    grabbed_components.forEach(grabItem => {
-      console.log(limit);
-      if (grabItem.name === draggedItem.innerHTML && limit > 0) {
-        selected_components.push(grabItem);
+    console.log(draggedItem.innerHTML + " is added");
+    console.log(componentsOutOfComputer);
+    console.log(current_computer.components);
+    //console.log(current_computer.components);
+    for (const item of componentsOutOfComputer) {
+      console.log(item.name);
+      console.log(draggedItem.innerHTML);
+      if (item.name === draggedItem.innerHTML && limit > 0) {
+        if(current_computer.components === undefined){
+          current_computer.components = [];
+        }
+        let index = componentsOutOfComputer.indexOf(item);
+        current_computer.components.push(item);
+        componentsOutOfComputer.splice(index, 1);
         limit--;
       }
-    })
-    draggedItem.isInPC = true;
-  }
+    }
 
+  }
+  draggedItem.isInPC = true;
 }
 
-function removeItemFromList(draggedItem){
-  if(draggedItem.isInPC) {
+function removeItemFromComponentList(draggedItem) {
+  if (draggedItem.isInPC) {
     let limit = 1;
-    console.log(draggedItem + "is removed");
-    for (const item of selected_components) {
+    console.log(draggedItem.innerHTML + " is removed");
+    for (const item of current_computer.components) {
       if (item.name === draggedItem.innerHTML && limit > 0) {
-        let index = selected_components.indexOf(item);
-        selected_components.splice(index, 1);
+        let index = current_computer.components.indexOf(item);
+        current_computer.components.splice(index, 1);
+        componentsOutOfComputer.push(item);
         limit--;
       }
     }
@@ -138,18 +191,14 @@ function removeItemFromList(draggedItem){
 }
 
 
-
-function resetItems(){
-  selected_components = [];
+function resetItems() {
   let computer = document.getElementById('computer_case')
   let componentsInComputer = computer.querySelectorAll('li[draggable=true]')
   let bluePrint = document.getElementById('computer_list');
-  componentsInComputer.forEach(element =>{
+  componentsInComputer.forEach(element => {
     element.isInPC = false;
     bluePrint.appendChild(element);
   })
 }
 
-export {createNewComputerBlueprint}
-export {addItemToList}
-export {removeItemFromList}
+export {createComputerBlueprint, addComponents, addItemToComponentList, removeItemFromComponentList}

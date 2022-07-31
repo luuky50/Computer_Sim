@@ -8,7 +8,7 @@
   <script type="module" defer src="../js/dataSender.js"></script>
   <script type="module" defer src="../js/computer_creating.js"></script>
   <script type="module" defer src="../js/component_selecting.js"></script>
-
+  <script type="module" defer src="../js/main.js"></script>
 
 
   <title>Title</title>
@@ -24,12 +24,12 @@
       <button type="button" onclick="location.href='index.html'">Home</button>
       <div class="dropdown">
         <button type="button" onclick="location.href='components.html'"> Components</button>
-        <div class="componentTypes">
+        <div id="componentTypes">
           <a href="components.html?component=GPU">GPU</a>
           <a href="components.html?component=CPU">CPU</a>
           <a href="components.html?component=MOTHERBOARD">MOTHERBOARD</a>
           <a href="components.html?component=PSU">PSU</a>
-          <a href="components.html?component=COOLER">COOLER</a>
+          <a href="components.html?component=COOLING">COOLER</a>
           <a href="components.html?component=RAM">RAM</a>
           <a href="components.html?component=STORAGE">STORAGE</a>
         </div>
@@ -91,6 +91,7 @@
       <div class="dropzone" id="computer_text"></div>
     </div>
       <button id="done_button">Done</button>
+      <button id="back_button">Components</button>
 
     <div id="computer_items"> Components:
       <ul class="dropzone" id="computer_list">
@@ -106,6 +107,7 @@
       <h3>Finishing your pc</h3>
       <label for="computer_name">Computer name: </label><br>
       <input type="text" id="computer_name" name="computer_name" placeholder="Insert name here"><br>
+      <div id="error_message">Must give computer a name</div>
       <div>Added components:
         <ul id="done_items">
 
@@ -113,6 +115,7 @@
       </div>
       <button type="button" id="save_button">Save</button>
     </form>
+</div>
 </div>
 <footer>
   <h5>Created by Luuk Hulshof</h5>

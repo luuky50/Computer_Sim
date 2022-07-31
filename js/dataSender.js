@@ -14,6 +14,7 @@ async function postNewComputer(newComputer){
   return await response.json();
 }
 
+
 async function deleteComputer(computerID){
   const response = await fetch(dataBaseURL + '/computers/' + computerID, {
     method: 'DELETE',
@@ -26,7 +27,7 @@ async function deleteComputer(computerID){
 }
 
 async function editComputer(computerID, updateComputer){
-  const response = await fetch(dataBaseURL + '/computers/' + + computerID, {
+  const response = await fetch(dataBaseURL + '/computers/' + computerID, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -37,9 +38,28 @@ async function editComputer(computerID, updateComputer){
   return await response.json();
 }
 
+async function postNewComponent(newComponent){
+  const response = await fetch(dataBaseURL + '/components', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newComponent)
+  });
 
-export {postNewComputer};
-export {deleteComputer};
-export {editComputer};
+  return await response.json();
+}
 
+async function putComponentById(id, component){
+  const response = await fetch(dataBaseURL + '/components/' + id, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(component)
+  });
 
+  return await response.json();
+}
+
+export {postNewComputer, deleteComputer, editComputer, postNewComponent, putComponentById};
