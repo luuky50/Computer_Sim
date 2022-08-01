@@ -62,4 +62,50 @@ async function putComponentById(id, component){
   return await response.json();
 }
 
-export {postNewComputer, deleteComputer, editComputer, postNewComponent, putComponentById};
+async function deleteComponentById(componentID){
+  const response = await fetch(dataBaseURL + '/components/' + componentID, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
+  return response.status.toString();
+}
+
+async function postNewUser(newUser){
+  const response = await fetch(dataBaseURL + '/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  });
+
+  return await response.json();
+}
+
+async function putUserById(id, user){
+  const response = await fetch(dataBaseURL + '/users/' + id, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  });
+
+  return await response.json();
+}
+
+async function deleteUserById(userId){
+  const response = await fetch(dataBaseURL + '/users/' + userId, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
+  return response.status.toString();
+}
+
+export {postNewComputer, deleteComputer, editComputer, postNewComponent, putComponentById, deleteComponentById, postNewUser, putUserById, deleteUserById};

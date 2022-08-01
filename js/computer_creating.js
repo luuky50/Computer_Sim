@@ -32,7 +32,8 @@ async function addComponents(components, newComputer) {
     }
   }
   if (current_computer.length === 0) {
-    current_computer = new Computer(null, "", componentsOutOfComputer)
+    current_computer = new Computer(null, "", [])
+    console.log(current_computer);
   }
   await addDraggableEvents();
 }
@@ -63,8 +64,6 @@ function addFunctionalityToCloseSavePanelButton() {
   closeButton.onclick = function () {
     let savePanel = document.getElementById("save_panel");
     savePanel.style.display = "none";
-    current_computer.components = [];
-    resetItems();
   }
 }
 
@@ -92,12 +91,11 @@ function saveComputer(isNewComputer) {
     let newName = formData.get('computer_name');
     console.log(newName);
     console.log(current_computer.name)
-    if(newName === "" || newName === null && current_computer.name === null){
-      let errorMsg = document.getElementById('error_message');
+    if (newName === "" || newName === null && current_computer.name === null) {
+      let errorMsg = document.getElementById('error_name');
       errorMsg.style.display = 'block';
       return;
-    }
-    else{
+    } else {
       current_computer.name = newName;
     }
     console.log(current_computer.name);
@@ -120,9 +118,9 @@ function openSavePanel(data) {
   let componentsDoneList = document.getElementById("done_items");
   let saveButton = document.getElementById('save_button');
   let computerName = document.getElementById('computer_name');
-  let errorMsg = document.getElementById('error_message');
+  let errorMsg = document.getElementById('error_name');
   errorMsg.style.display = 'none';
-  if(data.name !== undefined) {
+  if (data.name !== undefined) {
     computerName.placeholder = data.name;
   }
   componentsDoneList.innerHTML = '';
@@ -160,7 +158,7 @@ function addItemToComponentList(draggedItem) {
       console.log(item.name);
       console.log(draggedItem.innerHTML);
       if (item.name === draggedItem.innerHTML && limit > 0) {
-        if(current_computer.components === undefined){
+        if (current_computer.components === undefined) {
           current_computer.components = [];
         }
         let index = componentsOutOfComputer.indexOf(item);
@@ -190,15 +188,5 @@ function removeItemFromComponentList(draggedItem) {
   }
 }
 
-
-function resetItems() {
-  let computer = document.getElementById('computer_case')
-  let componentsInComputer = computer.querySelectorAll('li[draggable=true]')
-  let bluePrint = document.getElementById('computer_list');
-  componentsInComputer.forEach(element => {
-    element.isInPC = false;
-    bluePrint.appendChild(element);
-  })
-}
 
 export {createComputerBlueprint, addComponents, addItemToComponentList, removeItemFromComponentList}

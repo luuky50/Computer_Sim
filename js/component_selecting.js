@@ -70,20 +70,24 @@ function switchPanel(onSelectingPage){
 async function populateSelectionList(type) {
   let data = await getComponentsOfType(type)
   let amountOfComponents = data.length;
-  let optionList = document.getElementById(type)
-  let lists = optionList.querySelectorAll('select')
-  lists.forEach(element => {
-    if(element.options.length < amountOfComponents) {
-      for (let i = 0; i < amountOfComponents; i++) {
-        let option = document.createElement('option');
-        option.name = data[i].name;
-        option.innerHTML = "<div>" + data[i].name + "</div>";
-        components_local.push(new Component(data[i].id, data[i].type, data[i].name, data[i].price));
-        element.append(option);
-      }
+  if(type !== null) {
+    let optionList = document.getElementById(type)
+    if(optionList !== null) {
+      let lists = optionList.querySelectorAll('select')
+      lists.forEach(element => {
+        if (element.options.length < amountOfComponents) {
+          for (let i = 0; i < amountOfComponents; i++) {
+            let option = document.createElement('option');
+            option.name = data[i].name;
+            option.innerHTML = "<div>" + data[i].name + "</div>";
+            components_local.push(new Component(data[i].id, data[i].type, data[i].name, data[i].price));
+            element.append(option);
+          }
 
+        }
+      })
     }
-  })
+  }
 
 }
 if(document.URL.includes('computer_creating.html')){
@@ -94,8 +98,8 @@ if(document.URL.includes('computer_creating.html')){
 
 
 async function getComponents() {
-
-  let componentList = document.querySelectorAll('select')
+  let componentHtml = document.getElementById('componentLists');
+  let componentList = componentHtml.querySelectorAll('select')
   let components = [];
   componentList.forEach(item => {
     if (item.options[item.selectedIndex] !== undefined){

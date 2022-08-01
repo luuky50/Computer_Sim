@@ -1,22 +1,14 @@
-import {getComponentsOfType} from "../js/dataReceiver.js";
-import {postNewComponent, putComponentById, deleteComponentById} from "../js/dataSender.js";
-import {Component} from "./models/model.js";
+import {postNewUser, putUserById, deleteUserById} from "../js/dataSender.js";
+import {User} from "./models/model.js";
 import {switchPage} from "./main.js";
 
 let current_data = [];
 
-async function getComponentType(){
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('component');
-}
 
-
-function openComponentPanel(isEditing, data) {
-  let componentPanel = document.getElementById('save_panel');
+function openUserPanel(isEditing, data) {
+  let userPanel = document.getElementById('save_panel');
   let componentTypeText = document.getElementById('component_type');
   let headerText = document.getElementById('component_header');
-  let componentTypes = document.getElementById('componentTypes').children;
-  let dropDown = document.createElement('select');
   let saveButton = document.getElementById('save_button');
   let editButton = document.getElementById('edit_button');
   let deleteButton = document.getElementById('delete_button');
@@ -105,19 +97,19 @@ function saveComponent(id){
   if(id !== undefined){
     console.log('putting');
     component = new Component(id, type.innerText, name, price);
-    putComponentById(id, component).then(switchPage('components.html'));
+    putUserById(id, component).then(switchPage('components.html'));
   }else {
     console.log('posting');
-    component = new Component(null, type.innerText, name, price);
-    postNewComponent(component).then(switchPage('components.html'));
+    component = new User(null, type.innerText, name, price);
+    postNewUser(component).then(switchPage('components.html'));
   }
   console.log(component);
   current_data = [];
 }
 
 
-function deleteComponent(id){
-  deleteComponentById(id).then(switchPage('components.html'));
+function deleteUser(id){
+  deleteUserById(id).then(switchPage('components.html'));
   current_data = [];
 }
 
@@ -127,14 +119,14 @@ function getDetails(data){
 }
 
 
-function addFunctionalityToSaveComponentButton() {
+function addFunctionalityToSaveUserButton() {
   let saveComponentButton = document.getElementById('save_button');
   saveComponentButton.addEventListener('click', function (){
     saveComponent();
   })
 }
 
-function addFunctionalityToAddComponentButton(){
+function addFunctionalityToAddUserButton(){
   let addComponentButton = document.getElementById('add_component');
   addComponentButton.addEventListener('click',function () {
     openComponentPanel(false);

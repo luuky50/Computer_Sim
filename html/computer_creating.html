@@ -36,11 +36,15 @@
       </div>
       <button type="button" onclick="location.href='computer_creating.html'">Build your own pc</button>
       <button type="button" onclick="location.href='computers.html'">My computers</button>
+      <button type="button" onclick="location.href='users.html'">My users</button>
     </div>
   </aside>
 
   <div class="selectionComponents" id="selectionComp"> Select your components
-    <label>
+    <select id="pick_user">
+
+    </select>
+    <label id="componentLists">
       <div id="GPU">GPU(s)
         <select name="GPU">
 
@@ -107,7 +111,7 @@
       <h3>Finishing your pc</h3>
       <label for="computer_name">Computer name: </label><br>
       <input type="text" id="computer_name" name="computer_name" placeholder="Insert name here"><br>
-      <div id="error_message">Must give computer a name</div>
+      <div class="error_message" id="error_name">Must give computer a name</div>
       <div>Added components:
         <ul id="done_items">
 
