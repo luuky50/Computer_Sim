@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <script type="module" defer src="../js/components.js"></script>
-  <script type="module" defer src="../js/dataReceiver.js"></script>
-  <script type="module" defer src="../js/main.js"></script>
-
   <meta charset="UTF-8">
   <title>Components</title>
+
+  <script type="module" defer src="../js/creator_creating.js"></script>
+  <script type="module" defer src="../js/main.js"></script>
+  <script type="module" defer src="../js/dataReceiver.js"></script>
 
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -37,27 +36,22 @@
     </div>
   </aside>
 
-  <div>
-    <button style="font-size: 50px; font-family: Consolas,serif"  id="add_component"><span>+</span></button>
-    <ul id="items">
+  <div style="font-family: Consolas,serif">
+    <button style="font-size: 50px; font-family: Consolas,serif" id="add_user"><span>+</span></button>
+    <ul id="users">
 
     </ul>
   </div>
-</div>
 
 </div>
 <form style="font-family: Consolas,serif" class="save_panel" id="save_panel">
   <button type="button" id="close_panel">X</button>
-  <h3 id="component_header">Adding new component</h3>
-  <label for="component_name">Component name: </label><br>
-  <input type="text" id="component_name" name="component_name" placeholder="Insert name here"><br>
+  <h3 id="user_header">Adding new User</h3>
+  <label for="user_name">User name: </label><br>
+  <input type="text" id="user_name" name="user_name" placeholder="Insert name here"><br>
   <div class="error_message" id="error_name">Must give computer a name</div>
-  <div id="component_type">Component type: </div>
-  <label for="component_price">Component price: </label><br>
-  <input type="text" id="component_price" name="component_price" placeholder="Insert price here"><br>
-  <div class="error_message" id="error_price">Price only accepts numbers</div>
-
-
+  <textarea type="text" id="user_description" name="user_description" placeholder="Insert description here"></textarea>
+  <div class="error_message" id="error_description">Description is too long</div>
 
   <button type="button" id="save_button">Save</button>
   <button type="button" id="edit_button">Edit</button>
@@ -65,9 +59,12 @@
 </form>
 </div>
 
+</div>
+
 <footer>
   <h5 style="font-family: Consolas,serif">Created by Luuk Hulshof</h5>
 </footer>
+
 
 </body>
 </html>

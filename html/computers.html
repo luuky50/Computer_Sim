@@ -16,36 +16,37 @@
 <body>
 <div class="container">
   <aside class="sidebar">
-    <h1>Computer Sim</h1>
+    <h1 style="font-family: Consolas,serif" id="computerwebsite_header">Computer Sim</h1>
     <div class="buttons">
-      <button type="button" onclick="location.href='index.html'">Home</button>
+      <button style="font-family: Consolas,serif" class="main_button" type="button" onclick="location.href='index.html'">Home</button>
       <div class="dropdown">
-        <button type="button" onclick="location.href='components.html'"> Components</button>
+        <button style="font-family: Consolas,serif" class="main_button" type="button" onclick="location.href='components.html'"> Components</button>
         <div id="componentTypes">
-          <a href="components.html?component=GPU">GPU</a>
-          <a href="components.html?component=CPU">CPU</a>
-          <a href="components.html?component=MOTHERBOARD">MOTHERBOARD</a>
-          <a href="components.html?component=PSU">PSU</a>
-          <a href="components.html?component=COOLING">COOLER</a>
-          <a href="components.html?component=RAM">RAM</a>
-          <a href="components.html?component=STORAGE">STORAGE</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=GPU">GPU</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=CPU">CPU</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=MOTHERBOARD">MOTHERBOARD</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=PSU">PSU</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=COOLING">COOLER</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=RAM">RAM</a>
+          <a style="font-family: Consolas,serif" href="components.html?component=STORAGE">STORAGE</a>
         </div>
       </div>
-      <button type="button" onclick="location.href='computer_creating.html'">Build your own pc</button>
-      <button type="button" onclick="location.href='computers.html'">My computers</button>
-      <button type="button" onclick="location.href='users.html'">My users</button>
+      <button style="font-family: Consolas,serif" class="main_button" type="button" onclick="location.href='computer_creating.html'">Build your own pc</button>
+      <button style="font-family: Consolas,serif" class="main_button" type="button" onclick="location.href='computers.html'" >My computers</button>
+      <button style="font-family: Consolas,serif" class="main_button" type="button" onclick="location.href='creators.html'">My users</button>
     </div>
   </aside>
 
-  <div>
+  <div style="font-family: Consolas,serif">
     <ul id="computers">
 
     </ul>
   </div>
 
-  <form id="details_panel">
+  <form style="font-family: Consolas,serif" id="details_panel">
     <button type="button" id="close_panel">X</button>
     <div id="computer_name"></div>
+    <div id="madeBy"></div>
     <ul id="components">
 
     </ul>
@@ -57,7 +58,7 @@
 
 
 <footer>
-  <h5>Created by Luuk Hulshof</h5>
+  <h5 style="font-family: Consolas,serif">Created by Luuk Hulshof</h5>
 </footer>
 
 </body>

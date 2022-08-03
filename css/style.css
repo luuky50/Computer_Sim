@@ -1,14 +1,61 @@
 
+:root {
+  --color: white;
+}
+::placeholder{
+  color: #cccccc;
+}
+
+/*Colours:
+#BAC2D9 Background
+#F2BFAC Text
+#2E3D59 Sidebar
+#A66151 Buttons
+#010626 Panels
+ */
+
+
 body{
-  height: 100%;
+  min-height: 100%;
+  height: 100vh;
 }
 
 html{
-  height: 100%;
+  min-height: 100%;
+  height: 100vh;
+}
+
+
+h1{
+  color: var(--color);
+}
+
+
+
+#computerwebsite_header{
+  text-align: center;
+  color: #F2BFAC;
+}
+
+.main_button{
+  display: block;
+  color: white;
+  background-color: #A66151;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  text-align: center;
+  width: 100%;
+  border:none;
+}
+
+.button{
+  color: white;
+  background-color: #A66151;
 }
 
 .container{
-  background-color: #fff;
+  background-color: #BAC2D9;
   margin: 0 auto;
   display: grid;
   height: 100%;
@@ -33,24 +80,24 @@ header{
   min-height: 100%;
   height: 100vh;
   align-items: stretch;
-  background-color: #cccccc;
+  background-color: #2E3D59;
   border-right: 2px solid black;
 }
 
 .buttons{
-  width: 150px;
+  width: 200px;
 }
 
 #componentTypes{
   display: none;
-  background-color: #b3d4fc;
+  background-color: #A66151;
   border-color: black;
   border-width: 10px;
   text-align: center;
 }
 
 a{
-  color: black;
+  color: white;
 }
 
 a:active{
@@ -66,8 +113,8 @@ a:active{
 .dropdown:hover > #componentTypes{
   display: flex;
   flex-direction: column;
-  margin-left: 97px;
-  margin-top: -24.5px;
+  margin-left: 210px;
+  margin-top: -58.5px;
   position: absolute;
 }
 
@@ -75,6 +122,7 @@ footer{
   position: fixed;
   bottom: 0;
   width: max-content;
+  color: white;
 }
 
 #items{
@@ -91,12 +139,17 @@ footer{
   width: 150px;
   border: black solid 2px;
   overflow: hidden;
+  color: var(--color);
+  background-color: #2E3D59;
 }
 
 .itemButton{
   margin-top: 5px;
   width: 60px;
   margin-left: 90px;
+  color: var(--color);
+  background-color: #A66151;
+  border: none;
 }
 
 .prices{
@@ -106,7 +159,6 @@ footer{
 
 .components{
   display: none;
-
 }
 
 .dropdown:hover > .components{
@@ -117,7 +169,7 @@ footer{
   position: absolute;
   right: 50px;
   top: 50px;
-  width: 100px;
+  width: 120px;
 }
 
 .selectionComponents{
@@ -127,6 +179,8 @@ footer{
   margin: auto;
   width: 50%;
   padding: 10px;
+  color: var(--color);
+  background-color: #2E3D59;
 }
 
 .selectionComponents > label{
@@ -137,10 +191,15 @@ footer{
 .selectionComponents > label > div > select{
   display: grid;
   width: 100px;
+  color: var(--color);
+  background-color: #A66151;
 }
 
 .addComponent{
   position: relative;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 
@@ -149,11 +208,18 @@ footer{
   display: grid;
   padding: 10px;
   margin: 10px auto auto;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 
 .computer_building{
   display: none;
+}
+
+#CPU_SECTION{
+  color: #2E3D59;
 }
 
 #computer_items{
@@ -166,7 +232,10 @@ footer{
   padding: 10px;
   z-index: 1;
   text-align: center;
+  color: white;
+  background-color: #2E3D59;
 }
+
 
 #computer_items > ul{
   display: flex;
@@ -180,16 +249,23 @@ footer{
 
 #computer_items > ul > li{
   padding-right: 70px;
+  width: min-content;
 }
 
 #done_button{
   width: 100px;
   height: 50px;
+  color: white;
+  background-color: #A66151;
+  border:none;
 }
 
 #back_button{
   width: 100px;
   height: 50px;
+  color: white;
+  background-color: #A66151;
+  border:none;
 }
 
 #computer_case{
@@ -212,6 +288,21 @@ footer{
   left: 10%;
   width: 80%;
   height: 80%;
+  color: white;
+}
+
+#computer_text > li{
+  width: fit-content;
+}
+
+#madeBy{
+  position: absolute;
+  left: 0;
+  top: 50px;
+  height: 150px;
+  width: 200px;
+  overflow: scroll;
+
 }
 
 
@@ -231,7 +322,8 @@ footer{
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  background-color: #b3d4fc;
+  color: var(--color);
+  background-color: #2E3D59;
   height: 300px;
   width: 500px;
   top: 30%;
@@ -244,6 +336,9 @@ footer{
   position: absolute;
   top: 0;
   right: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 #computers{
@@ -260,6 +355,7 @@ footer{
   margin-bottom: 10px;
   height: 250px;
   width: 300px;
+  background-color: #2E3D59;
   background-image: url(/visual/computer_case.png);
   background-repeat: no-repeat;
   background-size: contain;
@@ -274,13 +370,28 @@ footer{
 
 
 .detailsComputer{
-  width: 60px;
+  width: 75px;
   position: absolute;
   bottom: 0;
   right: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
+}
+
+#computer_name{
+  color: var(--color);
+  background-color: #A66151;
+  width: min-content;
+}
+
+#selectable_users{
+  color: var(--color);
+  background-color: #A66151;
 }
 
 .computerName{
+  color: var(--color);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -291,7 +402,8 @@ footer{
   left: 40%;
   z-index: 10;
   position: fixed;
-  background-color: #b3d4fc;
+  color: var(--color);
+  background-color: #2E3D59;
   height: 300px;
   width: 500px;
   display: none;
@@ -319,11 +431,17 @@ footer{
   position: absolute;
   bottom: 0;
   left: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 #delete_computer{
   position: absolute;
   bottom: 0;
   right: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 #done_items{
@@ -338,6 +456,9 @@ footer{
   position: absolute;
   bottom: 0;
   left: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 #edit_button{
@@ -345,6 +466,9 @@ footer{
   position: absolute;
   bottom: 0;
   left: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
 }
 
 #delete_button{
@@ -352,6 +476,54 @@ footer{
   position: absolute;
   bottom: 0;
   right: 0;
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
+}
+
+#add_component{
+  position: absolute;
+  display: block;
+  left: 300px;
+  top: 50px;
+  width: 50px;
+  height: 50px;
+  color: White;
+  background-color: #A66151;
+  border:none;
+
+}
+
+#add_component span{
+    position: relative;
+    width: 30px;
+    height:30px;
+    display: block;
+    top: 0%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+#add_user{
+  position: absolute;
+  display: block;
+  left: 300px;
+  top: 50px;
+  width: 50px;
+  height: 50px;
+  color: White;
+  background-color: #A66151;
+  border:none;
+}
+
+#add_user span{
+  position: relative;
+  width: 30px;
+  height:30px;
+  display: block;
+  top: 0%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 
 #users{
@@ -359,4 +531,46 @@ footer{
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
+}
+
+#users > li{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #2E3D59;
+  height: 200px;
+  width: 200px;
+  border: black solid 2px;
+  overflow: hidden;
+}
+
+#user_name{
+  color: var(--color);
+  background-color: #A66151;
+  border:none;
+}
+
+#user_description{
+  width: 450px;
+  height: 150px;
+  text-wrap: inherit;
+  color: var(--color);
+  background-color: #A66151;
+}
+
+#component_name{
+  color: var(--color);
+  background-color: #A66151;
+}
+
+#component_type > select{
+  color: var(--color);
+  background-color: #A66151;
+}
+#component_price{
+  color: var(--color);
+  background-color: #A66151;
 }

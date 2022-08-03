@@ -6,6 +6,7 @@ async function getDetails(data){
 
   let savePanel = document.getElementById("details_panel");
   let components = document.getElementById('components');
+  let madeBy = document.getElementById('madeBy');
   let computerName = document.getElementById('computer_name');
   let editButton = document.getElementById('edit_computer')
   let deleteButton = document.getElementById('delete_computer');
@@ -13,7 +14,7 @@ async function getDetails(data){
 
   components.innerHTML = "";
   computerName.innerHTML = data.name;
-
+  madeBy.innerHTML = "Made by: " + data.madeBy.name + "<br />" + data.madeBy.description;
   for (const comp of data.components) {
     let listItem = document.createElement('li');
     let itemHtml = "";

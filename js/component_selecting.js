@@ -79,7 +79,7 @@ async function populateSelectionList(type) {
           for (let i = 0; i < amountOfComponents; i++) {
             let option = document.createElement('option');
             option.name = data[i].name;
-            option.innerHTML = "<div>" + data[i].name + "</div>";
+            option.innerHTML = "<div style=\"font-family: Consolas,serif\">" + data[i].name + "</div>";
             components_local.push(new Component(data[i].id, data[i].type, data[i].name, data[i].price));
             element.append(option);
           }

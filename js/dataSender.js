@@ -39,7 +39,7 @@ async function editComputer(computerID, updateComputer){
 }
 
 async function postNewComponent(newComponent){
-  const response = await fetch(dataBaseURL + '/components', {
+  const response = await fetch(dataBaseURL + '/components/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ async function deleteComponentById(componentID){
 }
 
 async function postNewUser(newUser){
-  const response = await fetch(dataBaseURL + '/users', {
+  const response = await fetch(dataBaseURL + '/creators', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ async function postNewUser(newUser){
 }
 
 async function putUserById(id, user){
-  const response = await fetch(dataBaseURL + '/users/' + id, {
+  const response = await fetch(dataBaseURL + '/creators/' + id, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ async function putUserById(id, user){
 }
 
 async function deleteUserById(userId){
-  const response = await fetch(dataBaseURL + '/users/' + userId, {
+  const response = await fetch(dataBaseURL + '/creators/' + userId, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
