@@ -1,5 +1,5 @@
 import {addDraggableEvents} from "../js/dragController.js";
-import {editComputer, postNewComputer, putUserById} from '../js/dataSender.js';
+import {putComputerById, postNewComputer, putUserById} from '../js/dataSender.js';
 import {getCreatorData} from "../js/dataReceiver.js";
 import {Component, Computer, User} from "../js/models/model.js"
 import {switchPanel} from "../js/component_selecting.js"
@@ -93,17 +93,16 @@ function saveComputer(isNewComputer) {
     let newName = formData.get('computer_name');
     let userNames = formElement.querySelectorAll('select')
 
-    console.log(current_computer);
+    console.log(current_computer.name );
 
-    if (newName === "" || newName === null && current_computer.name === null) {
+    if (newName === "" && current_computer.name === "") {
       let errorMsg = document.getElementById('error_name');
       errorMsg.innerHTML = 'Must give computer a name';
       errorMsg.style.display = 'block';
       return;
-    } else {
+    } else if(newName !== ""){
       current_computer.name = newName;
     }
-
     userNames.forEach(item => {
       for (const user of current_users) {
         if(user.name === item.options[item.selectedIndex].innerHTML){
@@ -124,7 +123,7 @@ function saveComputer(isNewComputer) {
       current_computer = [];
     } else {
       console.log(JSON.stringify(current_computer));
-      editComputer(current_computer.id, current_computer).then(switchPage('computers.html'));
+      putComputerById(current_computer.id, current_computer).then(switchPage('computers.html'));
       current_computer = [];
     }
   } else {

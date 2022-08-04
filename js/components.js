@@ -1,6 +1,6 @@
-import {getComponentsOfType} from "../js/dataReceiver.js";
-import {postNewComponent, putComponentById, deleteComponentById} from "../js/dataSender.js";
-import {Component} from "./models/model.js";
+import {getComponentsOfType, getComputerData} from "../js/dataReceiver.js";
+import {postNewComponent, putComponentById, deleteComponentById, putComputerById} from "../js/dataSender.js";
+import {Component, Computer} from "./models/model.js";
 import {switchPage} from "./main.js";
 
 let current_data = [];
@@ -69,7 +69,7 @@ function openComponentPanel(isEditing, data) {
   componentPanel.style.display = 'block';
 }
 
-function saveComponent(id){
+async function saveComponent(id){
   let errorName = document.getElementById('error_name');
   let errorPrice = document.getElementById('error_price');
   let formElement = document.forms.save_panel;
@@ -105,19 +105,32 @@ function saveComponent(id){
   if(id !== undefined){
     console.log('putting');
     component = new Component(id, type.innerText, name, price);
-    putComponentById(id, component).then(switchPage('components.html'));
+    await putComponentById(id, component);
+    switchPage('components.html');
   }else {
     console.log('posting');
     component = new Component(null, type.innerText, name, price);
-    postNewComponent(component).then(switchPage('components.html'));
+    await postNewComponent(component);
+    switchPage('components.html');
   }
   console.log(component);
   current_data = [];
 }
 
 
-function deleteComponent(id){
-  deleteComponentById(id).then(switchPage('components.html'));
+async function deleteComponent(id){
+  for(let computer of await getComputerData()){
+    for (let component of computer.components) {
+      if (component.id === id) {
+        let newComponentList = computer.components;
+        console.log(newComponentList);
+        newComponentList.splice(computer.components.indexOf(component), 1)
+        let newComputer = new Computer(computer.id, computer.name, computer.madeBy, newComponentList)
+        await putComputerById(newComputer.id, newComputer);
+      }
+    }
+  }
+  deleteComponentById(id);
   current_data = [];
 }
 

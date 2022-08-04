@@ -86,11 +86,11 @@ function saveUser(id) {
   if (id !== undefined) {
     console.log('putting');
     user = new User(id, name, description, null);
-    putUserById(id, user);
+    putUserById(id, user).then(switchPage('creators.html'));
   } else {
     console.log('posting');
     user = new User(null, name, description, null);
-    postNewUser(user);
+    postNewUser(user).then(switchPage('creators.html'));
   }
   console.log(user);
   current_data = [];
@@ -98,7 +98,7 @@ function saveUser(id) {
 
 
 function deleteUser(id) {
-  deleteUserById(id);
+  deleteUserById(id).then(switchPage('creators.html'));
   current_data = [];
 }
 
@@ -148,24 +148,25 @@ async function showContentItems() {
   console.log(data);
   let list = document.getElementById('users');
   let html = "";
-  let counter = 0;
-  for (let computer of computers) {
-    for (let i = 0; i < data.length; i++) {
-      if (computer.madeBy.id === data[i].id) {
-        counter++;
-      }
-    }
-  }
+
   for (let i = 0; i < data.length; i++) {
+    let counter = 0;
     html = "";
     let item = document.createElement('li');
     html += "<div>" + data[i].name + "</div>";
+    for (let computer of computers) {
+        if (computer.madeBy.id === data[i].id) {
+          counter++;
+        }
+
+    }
     html += "<div>" + "Total computers: " + counter + "</div>";
     html += "<button type=\"button\" class=\"detailsComputer\"> Details</button>";
     item.innerHTML = html;
     await list.appendChild(item);
     addFunctionalityToDetailsButton(item, data[i]);
   }
+
 
 
 }

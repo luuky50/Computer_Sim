@@ -26,7 +26,7 @@ async function deleteComputer(computerID){
   return response.status.toString();
 }
 
-async function editComputer(computerID, updateComputer){
+async function putComputerById(computerID, updateComputer){
   const response = await fetch(dataBaseURL + '/computers/' + computerID, {
     method: 'PUT',
     headers: {
@@ -108,4 +108,4 @@ async function deleteUserById(userId){
   return response.status.toString();
 }
 
-export {postNewComputer, deleteComputer, editComputer, postNewComponent, putComponentById, deleteComponentById, postNewUser, putUserById, deleteUserById};
+export {postNewComputer, deleteComputer, putComputerById, postNewComponent, putComponentById, deleteComponentById, postNewUser, putUserById, deleteUserById};

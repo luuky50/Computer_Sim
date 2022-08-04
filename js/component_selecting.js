@@ -20,7 +20,8 @@ async function getCurrentComputer(){
   let hash = location.hash;
   console.log(hash.replaceAll('#', ''));
   let currentComputer = await getComputerByHashCode(hash.replaceAll('#', ''))
-  let computerModel = new Computer(currentComputer.id, currentComputer.name, currentComputer.components)
+  let computerModel = new Computer(currentComputer.id, currentComputer.name, currentComputer.madeBy, currentComputer.components)
+  console.log(computerModel);
   createComputerBlueprint(computerModel).then(() => console.log(computerModel));
 }
 
