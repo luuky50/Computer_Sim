@@ -6,7 +6,7 @@ async function getComponentsOfType(type){
   if(type === null){
     type = "";
   }
-  return await fetch(dataBaseURL + '/components/' + type, {
+  return await fetch(dataBaseURL + '/components/' + "?type=" + type, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ async function getComputerData(){
 }
 
 async function getComputerHashCode(id){
-  return await fetch(dataBaseURL + '/computers/hash/' + id, {
+  return await fetch(dataBaseURL + '/computers/hash?id=' + id, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ async function getComputerHashCode(id){
 }
 
 async function getComputerByHashCode(hashCode){
-  return await fetch(dataBaseURL + '/computers/' + hashCode, {
+  return await fetch(dataBaseURL + '/computers/' + "hashcode" + "?hashcode=" + hashCode, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json'
@@ -86,24 +86,9 @@ async function getCreatorData(){
     });
 }
 
-async function getCreatorById(id){
-  return await fetch(dataBaseURL + '/creators/' + id, {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-    .then(response => response.json())
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
 
 async function refreshData(data){
 
 }
 
-export {getComponentsOfType, getComputerByHashCode, getComputerData, getComputerHashCode, getCreatorData, getCreatorById};
+export {getComponentsOfType, getComputerByHashCode, getComputerData, getComputerHashCode, getCreatorData};

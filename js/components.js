@@ -106,7 +106,7 @@ async function saveComponent(id){
     console.log('putting');
     component = new Component(id, type.innerText, name, price);
     await putComponentById(id, component);
-    switchPage('components.html');
+
   }else {
     console.log('posting');
     component = new Component(null, type.innerText, name, price);
@@ -130,7 +130,8 @@ async function deleteComponent(id){
       }
     }
   }
-  deleteComponentById(id);
+  await deleteComponentById(id);
+  switchPage('components.html');
   current_data = [];
 }
 

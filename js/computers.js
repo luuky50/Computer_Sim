@@ -41,7 +41,7 @@ function addFunctionalityToEditButton(editButton, hash){
 }
 
 function addFunctionalityToDeleteButton(deleteButton, computerID){
-  deleteButton.addEventListener('click', function (){deleteComputer(computerID).then(switchPage('computers.html'))}, false);
+  deleteButton.addEventListener('click', async function (){await deleteComputer(computerID).then(switchPage('computers.html'))}, false);
 }
 
 function addFunctionalityToDetailsButton(item, data){

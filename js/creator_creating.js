@@ -54,7 +54,7 @@ function openUserPanel(isEditing, data) {
   userPanel.style.display = 'block';
 }
 
-function saveUser(id) {
+async function saveUser(id) {
   let errorName = document.getElementById('error_name');
   let errorDescription = document.getElementById('error_description');
   let formElement = document.forms.save_panel;
@@ -70,7 +70,7 @@ function saveUser(id) {
     }
   }
   if (name === "" && current_data.name === undefined) {
-    errorName.innerHTML = 'Must give computer a name';
+    errorName.innerHTML = 'Must give user a name';
     errorName.style.display = 'block';
     return;
   } else if (current_data.name !== "" && name === "") {
@@ -86,12 +86,13 @@ function saveUser(id) {
   if (id !== undefined) {
     console.log('putting');
     user = new User(id, name, description, null);
-    putUserById(id, user).then(switchPage('creators.html'));
+    await putUserById(id, user);
   } else {
     console.log('posting');
     user = new User(null, name, description, null);
-    postNewUser(user).then(switchPage('creators.html'));
+    await postNewUser(user);
   }
+  switchPage('creators.html')
   console.log(user);
   current_data = [];
 }
