@@ -95,7 +95,7 @@ function saveComputer(isNewComputer) {
 
     console.log(current_computer.name );
 
-    if (newName === "" && current_computer.name === "") {
+    if (!newName && !current_computer.name) {
       let errorMsg = document.getElementById('error_name');
       errorMsg.innerHTML = 'Must give computer a name';
       errorMsg.style.display = 'block';
